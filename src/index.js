@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { initialState, reducer } from './reducers/emojiReducer'
 import { EmojiProvider } from './EmojiProvider'
+import GlobalStyles from './GlobalStyles';
 
 ReactDOM.render(
   <React.StrictMode>
     <EmojiProvider initialstate={initialState} reducer={reducer}>
+      <GlobalStyles />
       <App />
     </EmojiProvider>
   </React.StrictMode>,
