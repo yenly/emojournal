@@ -1,9 +1,4 @@
-/*
-- renders input field
-- submit button
-- emojipicker button using tippy 
- */
- import EmojiPicker from './EmojiPicker'
+import EmojiPicker from './EmojiPicker'
 
 const CreateEntry = () => {
   return (

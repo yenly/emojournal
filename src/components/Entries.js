@@ -9,7 +9,7 @@ const Entries = () => {
       {entries.length !== 0 && 
         <ul>
           {entries.map(entry => {
-            return <li>{dayjs(entry.date).format('MMM DD, YYYY')} - {entry.sentence}</li>
+            return <li key={entry.date}>{dayjs(entry.date).format('MMM DD, YYYY')} - {entry.sentence}</li>
           })}
         </ul>
       }
