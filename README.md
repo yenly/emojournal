@@ -8,6 +8,19 @@ I choose to manage the state using React context and useReducer hook because I w
 
 In my research, I found [emojibase-data](https://github.com/milesj/emojibase) package to have extensive data with skin tone variations in the data structure, but it lacks Unicode information. To parse the data to fit my needs, I would need more time than scoped for this POC. I recommend refactoring to use emojibase-data for the next phase of development. For this exercise, I chose to use Charley's helper file, emoji.js, and emoji-unicode-map package because the time it took to sanitize for emojis without Unicode is quick. The challenge to convert shortcodes back to emoji images for display requires more work. This strategy is suitable for building a proof of concept but not suited for production. I chose [Tippy.js](https://github.com/atomiks/tippyjs) to implement the popover because it's well documented, currently maintained, highly customizable, and comes with a [React wrapper](https://github.com/atomiks/tippyjs-react). I decided to use [Emotion](https://github.com/emotion-js/emotion) as my CSS-inJS to encapsulate the component styling, and the code is almost the same as writing native CSS.
 
+### To run it locally
+Clone the repository locally
+```bash
+cd emojournal
+npm install 
+# or
+yarn install
+
+npm start
+# or
+yarn start
+```
+
 ### Want To Do
 - [ ] Display emoji instead of shortcode after selection and in entries
 - [ ] Limit sentence to 8 emojis
