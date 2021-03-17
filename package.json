@@ -9,6 +9,8 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "@tippyjs/react": "^4.2.4",
+    "dayjs": "^1.10.4",
+    "emoji-unicode-map": "^1.1.11",
     "emojibase-data": "^6.1.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

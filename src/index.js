@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { initialState, reducer } from './reducers/emojiReducer'
+import { EmojiProvider } from './EmojiProvider'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <EmojiProvider initialstate={initialState} reducer={reducer}>
+      <App />
+    </EmojiProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
