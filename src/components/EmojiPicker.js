@@ -16,14 +16,15 @@ const Button = styled.button`
   font-weight: bold;
 `
 
-
 const EmojiPicker = () => {
   const [sentence, setSentence] = useState([])
+  const [history, setHistory] = useState({})
   const [{ emojiCode }, dispatch] = useEmojiProviderValues()
   
   const chooseEmoji = (emojiShortcode) => {
     dispatch({ type: 'ADD_EMOTE', emojiCode: emojiShortcode })
     setSentence([...sentence, emojiShortcode])
+    saveHistory(emojiShortcode)
   }
 
   const saveSentence = () => {
@@ -35,11 +36,24 @@ const EmojiPicker = () => {
     setSentence([])
   }
 
+  const saveHistory = (emoji) => {
+    let newHistory = history
+    if(history[emoji]) {
+      newHistory[emoji] += 1
+    } else {
+      newHistory[emoji] = 1
+    }
+    setHistory(newHistory)
+  }
+
   return (
     <div>
       <div>
         <p>current pick: {emojiCode}</p>
         <p>sentence: {sentence}</p>
+        <p>Pick History:
+          {Object.keys(history).map(item => <p key={item}>{item} - {history[item]}</p>)}
+        </p>
       </div>
       <Popover
         content={({ close }) => (
