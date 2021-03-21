@@ -3,7 +3,7 @@ import Tippy from "@tippyjs/react"
 import { sticky } from "tippy.js"
 
 import "tippy.js/dist/tippy.css"
-import "tippy.js/themes/material.css"
+import "tippy.js/themes/light.css"
 import "tippy.js/animations/shift-away-subtle.css"
 
 const defaultTippyProps = {
@@ -18,7 +18,7 @@ const defaultTippyProps = {
   appendTo: document.body,
   sticky: true,
   plugins: [sticky],
-  theme: "material",
+  theme: "light",
   inertia: true
 }
 

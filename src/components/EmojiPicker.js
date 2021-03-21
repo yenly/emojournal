@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
-import Emojis from './Emojis'
-import { useEmojiProviderValues } from '../EmojiProvider'
-import Popover from './Popover'
-import dayjs from 'dayjs'
+// import React, { useState } from 'react'
 import styled from '@emotion/styled'
+import { useEmojiProviderValues } from '../EmojiProvider'
+import { getEmojis } from '../utils/helpers'
+import Popover from './Popover'
+import Emojis from './Emojis'
+
 
 const Button = styled.button`
   background-color: var(--color-button-primary);
@@ -17,55 +18,44 @@ const Button = styled.button`
 `
 
 const EmojiPicker = () => {
-  const [sentence, setSentence] = useState([])
-  const [history, setHistory] = useState({})
+  // const [history, setHistory] = useState({})
   const [{ emojiCode }, dispatch] = useEmojiProviderValues()
   
-  const chooseEmoji = (emojiShortcode) => {
-    dispatch({ type: 'ADD_EMOTE', emojiCode: emojiShortcode })
-    setSentence([...sentence, emojiShortcode])
-    saveHistory(emojiShortcode)
+  const chooseEmoji = (emojiName) => {
+    const emoji = getEmoji(emojiName)
+    dispatch({ type: 'ADD_EMOTE', emojiCode: emoji })
+    // saveHistory(emojiShortcode)
   }
 
-  const saveSentence = () => {
-    const now = dayjs(new Date())
-    dispatch({ type: 'ADD_ENTRY', entry: {
-      date: now.valueOf(),
-      sentence: sentence
-    }})
-    setSentence([])
-  }
+  // const saveHistory = (emoji) => {
+  //   let newHistory = history
+  //   if(history[emoji]) {
+  //     newHistory[emoji] += 1
+  //   } else {
+  //     newHistory[emoji] = 1
+  //   }
+  //   setHistory(newHistory)
+  // }
 
-  const saveHistory = (emoji) => {
-    let newHistory = history
-    if(history[emoji]) {
-      newHistory[emoji] += 1
-    } else {
-      newHistory[emoji] = 1
-    }
-    setHistory(newHistory)
-  }
+  const emojis = getEmojis()
 
+  const getEmoji = (name) => {
+    return emojis[name]
+  }
+  console.log({emojiCode})
   return (
     <div>
-      <div>
-        <p>current pick: {emojiCode}</p>
-        <p>sentence: {sentence}</p>
-        <p>Pick History:
-          {Object.keys(history).map(item => <p key={item}>{item} - {history[item]}</p>)}
-        </p>
-      </div>
       <Popover
         content={({ close }) => (
           <>
             <Button onClick={close}>X</Button>
-            <Emojis chooseEmoji={chooseEmoji} close={close} />
+            <Emojis emojis={emojis} chooseEmoji={chooseEmoji} close={close} />
           </>
         )}
       >
         {({ open }) => <Button onClick={open}>😀</Button>}
       </Popover>
-      <Button onClick={saveSentence}>Save</Button>
+      
     </div>
   )
 }

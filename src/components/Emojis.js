@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { categories, emojis } from '../utils/emojis'
-import { sanitazeEmojiList } from '../utils/helpers'
+import { categories } from '../utils/emojis'
 import styled from '@emotion/styled'
 
 const EmjoisWrapper = styled.div`
@@ -8,13 +7,22 @@ const EmjoisWrapper = styled.div`
   overflow: scroll;
 `
 
-const H4 = styled.h4`
-  margin: 1rem 0 0.5rem 0;
-  text-transform: uppercase;
+const EmojiIcons = styled.ul`
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0.25rem 0;
+  padding: 0;
 `
 
+// const H4 = styled.h4`
+//   margin: 1rem 0 0.5rem 0;
+//   text-transform: uppercase;
+// `
 
-const Emojis = ({ chooseEmoji, close }) => {
+
+const Emojis = ({ emojis, chooseEmoji, close }) => {
   const [searchTerm, setSearchTerm] = useState('')
   const categoryNames = Object.keys(categories)
   const catReferences = useRef({})
@@ -37,16 +45,18 @@ const Emojis = ({ chooseEmoji, close }) => {
     catReferences.current[cat] = elem
   }
 
-  const renderEmojis = () => {
+  const renderByCat = () => {
     return categoryNames.map(category => {
-       /* TODO move sanitazeEmojiList to parent component for reuse */
-      const emojiList = sanitazeEmojiList(emojis[category])
-      const filteredList = emojiList.filter(emoji => emoji.shortcode.includes(searchTerm))
+      let emojiList = Object.values(emojis).filter(emoji => emoji.category === category)
+      const filteredList = emojiList.filter(emoji => emoji.name.includes(searchTerm))
       return (
         <section ref={(element) => storeRef(element, category)} key={category}>
-          {filteredList.length !== 0 && <H4>{category}</H4>}
-          {/* TODO change to use ul */}
-          {filteredList.map(emoji => <span key={emoji.shortcode} title={emoji.shortcode} onClick={() => handleOnClick(emoji.shortcode)}>{emoji.emoji}</span>)}
+          {filteredList.length !== 0 && category}
+          <EmojiIcons>
+            {filteredList.map(item => {
+              return <li key={item.name} title={item.name} onClick={() => handleOnClick(item.name)}>{item.emoji}</li>
+            })}
+          </EmojiIcons>
         </section>
       )
     })
@@ -55,16 +65,16 @@ const Emojis = ({ chooseEmoji, close }) => {
   const renderCategories = () => {
     return categoryNames.map(cat => {
       return (
-          <span onClick={() => showCategory(cat)} key={cat}>{categories[cat]}</span>
+          <li key={cat} onClick={() => showCategory(cat)}>{categories[cat]}</li>
       )
     })
   }
-
+  
   return (
     <div>
-      {renderCategories()}
+      <EmojiIcons>{renderCategories()}</EmojiIcons>
       <input id='seach' value={searchTerm} onChange={handleOnChange} placeholder='search' />
-      <EmjoisWrapper>{renderEmojis()}</EmjoisWrapper>
+      <EmjoisWrapper>{renderByCat()}</EmjoisWrapper>
     </div>
   )
 }

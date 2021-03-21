@@ -8,7 +8,7 @@ export const reducer = (state, action) => {
     case "ADD_EMOTE":
       return {...state, emojiCode: action.emojiCode}
     case "ADD_ENTRY":
-      return {...state, entries: state.entries.concat(action.entry)}
+      return {...state, entries: [...state.entries, action.entry]}
     default:
       return state
   }

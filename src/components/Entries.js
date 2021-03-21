@@ -3,13 +3,20 @@ import dayjs from 'dayjs';
  
 const Entries = () => {
   const [{ entries }] = useEmojiProviderValues();
-  
+
   return (
     <section>
       {entries.length !== 0 && 
         <ul>
-          {entries.map(entry => {
-            return <li key={entry.date}>{dayjs(entry.date).format('MMM DD, YYYY')} - {entry.sentence}</li>
+          {entries.map((entry, index) => {
+            return (
+              <li key={index}>
+                {dayjs(entry.date).format('MMM DD, YYYY hh:mm')}
+                {entry.sentence.map((emoji, index) => {
+                  return <span key={index} title={emoji.name && emoji.name.replaceAll('_', ' ')}>{emoji.emoji}</span>
+                })}
+              </li>
+            )
           })}
         </ul>
       }
