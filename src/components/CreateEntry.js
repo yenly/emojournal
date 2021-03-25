@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import dayjs from 'dayjs'
 import styled from '@emotion/styled'
-import { useEmojiProviderValues } from '../EmojiProvider'
+import { EmojiContext } from '../EmojiProvider'
 import EmojiPicker from './EmojiPicker'
 
 const Button = styled.button`
@@ -10,10 +10,11 @@ const Button = styled.button`
   border: 0;
   border-radius: 3px;
   padding: 0.5rem 1rem;
-  margin: 0 1rem 0 0;
+  margin: 0.7rem 1rem 0 0;
   text-transform: uppercase;
   color: var(--color-text);
   font-weight: bold;
+  text-shadow: 1px 0 3px #4C566A;
 `
 
 const SentenceWrapper = styled.div`
@@ -23,23 +24,34 @@ const SentenceWrapper = styled.div`
 `
 
 const Sentence = styled.p`
+  display: flex;
+  align-items: center;
   width: 100%;
   height: 38px;
   margin: 0;
+  padding: 0.25rem 0.5rem;
+  & > span {
+    height: 20px;
+    width: 20px;
+    padding: 0;
+    margin: 0 0.25rem 0 0;
+  }
 `
 
 const CreateEntry = () => {
   const [sentence, setSentence] = useState([])
-  const [{ emojiCode }, dispatch] = useEmojiProviderValues()
+  const { state, dispatch} = useContext(EmojiContext)
 
-  //TODO: revisit
   useEffect(() => {
-    setSentence([...sentence, emojiCode])
-  }, [emojiCode])
+    if(state.emojiCode) {
+      setSentence([...sentence, state.emojiCode])
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.emojiCode])
 
   const saveSentence = () => {
     const now = dayjs(new Date())
-    if (sentence.length !== 0) { // TO DO: Should not save if sentence is blank
+    if (sentence.length >= 1) { // TO DO: Should not save if sentence is blank
       dispatch({ type: 'ADD_ENTRY', entry: {
         date: now.valueOf(),
         sentence: sentence

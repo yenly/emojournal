@@ -5,13 +5,13 @@ const GlobalStyles = () => {
     <Global
       styles={css`
         html {
-          --color-background-dark: #2E3440;
-          --color-background-white: #FFFFFF;
-          --color-button-primary: #5E81AC;
+          --color-background-dark: #4C566A;
+          --color-background-white: #D8DEE9;
+          --color-button-primary: #D08770;
           --color-text-header: #E5E9F0;
           --color-text: #ECEFF4;
           margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+          font-family: 'Comic Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
             'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
             sans-serif;
           -webkit-font-smoothing: antialiased;

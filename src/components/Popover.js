@@ -1,24 +1,23 @@
-import React, { useState } from "react"
-import Tippy from "@tippyjs/react"
-import { sticky } from "tippy.js"
+import React, { useState } from 'react'
+import Tippy from '@tippyjs/react'
+import { sticky } from 'tippy.js'
 
-import "tippy.js/dist/tippy.css"
-import "tippy.js/themes/light.css"
-import "tippy.js/animations/shift-away-subtle.css"
+import 'tippy.js/dist/tippy.css'
+import 'tippy.js/themes/light.css'
+import 'tippy.js/animations/shift-away-subtle.css'
 
 const defaultTippyProps = {
-  animation: "shift-away-subtle",
-  arrow: true,
+  animation: 'shift-away-subtle',
+  arrow: false,
   interactive: true,
-  interactiveBorder: 10,
-  placement: "auto",
+  placement: 'auto',
   delay: [0, 0],
-  duration: [200, 150],
-  maxWidth: 500,
+  duration: [350, 200],
+  maxWidth: 280,
   appendTo: document.body,
   sticky: true,
   plugins: [sticky],
-  theme: "light",
+  theme: 'light',
   inertia: true
 }
 

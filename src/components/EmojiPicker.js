@@ -1,25 +1,42 @@
-// import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import styled from '@emotion/styled'
-import { useEmojiProviderValues } from '../EmojiProvider'
+import { keyframes } from '@emotion/react'
+import { EmojiContext } from '../EmojiProvider'
 import { getEmojis } from '../utils/helpers'
-import Popover from './Popover'
 import Emojis from './Emojis'
+import Popover from './Popover'
 
+const bounce = keyframes`
+  from, 20%, 53%, 80%, to {
+    transform: translate3d(0,0,0);
+  }
 
-const Button = styled.button`
-  background-color: var(--color-button-primary);
-  border: 0;
-  border-radius: 3px;
-  padding: 0.5rem 1rem;
-  margin: 0 1rem 0 0;
-  text-transform: uppercase;
-  color: var(--color-text);
-  font-weight: bold;
+  40%, 43% {
+    transform: translate3d(0, -15px, 0);
+  }
+
+  70% {
+    transform: translate3d(0, -8px, 0);
+  }
+
+  90% {
+    transform: translate3d(0,-4px,0);
+  }
+`
+
+const Icon = styled.a`
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  padding: 0;
+  margin: 0.5rem;
+  cursor: pointer;
+  animation: ${bounce} 1s ease 1;
 `
 
 const EmojiPicker = () => {
   // const [history, setHistory] = useState({})
-  const [{ emojiCode }, dispatch] = useEmojiProviderValues()
+  const { dispatch } = useContext(EmojiContext)
   
   const chooseEmoji = (emojiName) => {
     const emoji = getEmoji(emojiName)
@@ -42,20 +59,18 @@ const EmojiPicker = () => {
   const getEmoji = (name) => {
     return emojis[name]
   }
-  console.log({emojiCode})
+
   return (
     <div>
       <Popover
         content={({ close }) => (
           <>
-            <Button onClick={close}>X</Button>
             <Emojis emojis={emojis} chooseEmoji={chooseEmoji} close={close} />
           </>
         )}
       >
-        {({ open }) => <Button onClick={open}>😀</Button>}
+        {({ open }) => <Icon onClick={open} title='Open Emoji Picker'>😀</Icon>}
       </Popover>
-      
     </div>
   )
 }
