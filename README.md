@@ -22,10 +22,13 @@ yarn start
 ```
 
 ### Want To Do
-- [ ] Display emoji instead of shortcode after selection and in entries
-- [ ] Limit sentence to 8 emojis
-- [ ] Finalize design and change styling
-- [ ] Setup reducer to save entries to db
-- [ ] Refactor to use emojibase-data
+- [x] Display emoji instead of shortcode after selection and in entries
+- [ ] Limit sentence to 8 emojis?
+- [ ] Finalize design and change styling 
+  - [ ] Refactor to use headless tippyjs
+- [ ] Setup firebase db connection
+  - [ ] Setup reducer to save entries to db
+- [ ] Refactor to use emojibase-data or emoji-api?
 - [ ] Add frequently used category to emoji picker
+- [ ] Emoji Icon to open picker should also toggle to close the picker
 
