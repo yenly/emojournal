@@ -51,7 +51,7 @@ const CreateEntry = () => {
 
   const saveSentence = () => {
     const now = dayjs(new Date())
-    if (sentence.length >= 1) { // TO DO: Should not save if sentence is blank
+    if (sentence.length >= 1) { // TO DO: Should not save if sentence is blank, 1 should not be correct
       dispatch({ type: 'ADD_ENTRY', entry: {
         date: now.valueOf(),
         sentence: sentence
